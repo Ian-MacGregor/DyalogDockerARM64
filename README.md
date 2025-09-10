@@ -1,7 +1,19 @@
 
 # DyalogDockerARM64
 
-This project is a fork of the official Dyalog Docker Conainer project.  It is identical to the official container project except the Dockerfile has been altered to use the Dyalog distribution for the Raspberry Pi (32-bit ARM) instead of the x86 distribution.  Despite using the 32-bit distribution, the image created by this project can run on 64-bit ARM thanks to Docker (include the "--platform linux/arm/v7" tag when running the container to ensure compatibility on 64-bit ARM).  I believe this is the easiest way to run Dyalog APL on a 64-bit ARM machine (like Raspberry Pi 4 & 5).  The following readme information is nearly identical to the official image (only slight alterations to some "docker run" commands):
+This project is a fork of the official Dyalog Docker Conainer project.  It is identical to the official container project except the Dockerfile has been altered to use the Dyalog distribution for the Raspberry Pi (32-bit ARM) instead of the x86 distribution.  Despite using the 32-bit distribution, the image created by this project can run on 64-bit ARM thanks to Docker (include the "--platform linux/arm/v7" tag when running the container to ensure compatibility on 64-bit ARM).  I believe this is the easiest way to run Dyalog APL on a 64-bit ARM machine (like Raspberry Pi 4 & 5).  
+
+## Building the dyalog-ARM container
+
+Somehow, this information was left out of the official container project's readme.  Execute the following command from a path containing this project's files to generate a Docker image called "dyalog-ARM":
+
+`docker build --platform linux/arm/v7 -t dyalog-ARM .`
+
+NOTE: The trailing period is important!
+
+## General Information About Using This Container:
+
+The following readme information is nearly identical to the official image (only slight alterations to some "docker run" commands):
 
 ## Interactive APL Sessions
 
@@ -9,15 +21,15 @@ Dyalog's Remote IDE (RIDE) is recommended for interactive use and debugging of t
 
 To connect from a local RIDE, use the `serve` keyword in `RIDE_INIT`, after which you can connect RIDE and establish an interactive session. In this example, we use port 4502:
 
-`docker run --platform linux/arm/v7 -e RIDE_INIT=serve:*:4502 -p 4502:4502 dyalog/dyalog`
+`docker run --platform linux/arm/v7 -e RIDE_INIT=serve:*:4502 -p 4502:4502 dyalog-ARM`
 
 To use a web browser, use the `http` keyword, after which you can connect a browser, in this example to [http://localhost:8888](http://localhost:8888/).
 
-`docker run --platform linux/arm/v7 -e RIDE_INIT=http:*:8888 -p 8888:8888 dyalog/dyalog`
+`docker run --platform linux/arm/v7 -e RIDE_INIT=http:*:8888 -p 8888:8888 dyalog-ARM`
 
 It is also possible to start an interactive session without RIDE simply by starting the container with the `--interactive` and `--tty` switches (or `-it` for short).
 
-`docker run --platform linux/arm/v7 -it dyalog/dyalog`
+`docker run --platform linux/arm/v7 -it dyalog-ARM`
 
 If you do not set `RIDE_INIT` or enable `-it`, the container will terminate as soon as the interpreter requires session input.
 
@@ -53,7 +65,7 @@ $ cat /home/mkrom/helloworld/helloworld.aplf
 Then you can start a container which runs the function my mapping the folder into the container as `/app`:
 
 ```
-$ docker run -v /home/mkrom/helloworld:/app dyalog/dyalog
+$ docker run -v /home/mkrom/helloworld:/app dyalog-ARM
  _______     __      _      ____   _____
 |  __ \ \   / //\   | |    / __ \ / ____|
 |_|  | \ \_/ //  \  | |   | |  | | |
@@ -82,7 +94,7 @@ If you follow the instructions for enabling RIDE that you can find at the start 
 
 ## Extending the dyalog/dyalog Container
 
-You can build your own container images based on `dyalog/dyalog` using the statement `FROM dyalog/dyalog` in a dockerfile. This will give you a container which contains the Dyalog APL interpreter as `/opt/mdyalog/19.0/64/unicode/dyalog`. 
+You can build your own container images based on `dyalog-ARM` using the statement `FROM dyalog-ARM` in a dockerfile. This will give you a container which contains the Dyalog APL interpreter as `/opt/mdyalog/19.0/64/unicode/dyalog`. 
 
 Review the [entrypoint](https://github.com/Dyalog/DyalogDocker/blob/master/entrypoint) script for an example of how to launch the interpreter.
 
