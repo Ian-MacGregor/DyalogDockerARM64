@@ -9,15 +9,15 @@ Dyalog's Remote IDE (RIDE) is recommended for interactive use and debugging of t
 
 To connect from a local RIDE, use the `serve` keyword in `RIDE_INIT`, after which you can connect RIDE and establish an interactive session. In this example, we use port 4502:
 
-`docker run -e RIDE_INIT=serve:*:4502 -p 4502:4502 dyalog/dyalog`
+`docker run --platform linux/arm/v7 -e RIDE_INIT=serve:*:4502 -p 4502:4502 dyalog/dyalog`
 
 To use a web browser, use the `http` keyword, after which you can connect a browser, in this example to [http://localhost:8888](http://localhost:8888/).
 
-`docker run -e RIDE_INIT=http:*:8888 -p 8888:8888 dyalog/dyalog`
+`docker run --platform linux/arm/v7 -e RIDE_INIT=http:*:8888 -p 8888:8888 dyalog/dyalog`
 
 It is also possible to start an interactive session without RIDE simply by starting the container with the `--interactive` and `--tty` switches (or `-it` for short).
 
-`docker run -it dyalog/dyalog`
+`docker run --platform linux/arm/v7 -it dyalog/dyalog`
 
 If you do not set `RIDE_INIT` or enable `-it`, the container will terminate as soon as the interpreter requires session input.
 
@@ -27,7 +27,7 @@ If you map directories into the container using the `-v` switch, your APL sessio
 
 If you set one of the environment variables `LOAD`, `CONFIGFILE` or `DYAPP` in the container at startup, the settings will be used by the interpreter when it is launched. For example, if the directory `/home/mkrom/myapp` contains your application, you can mount this directory into the running image as `/myapp` and start your application from the workspace `boot.dws`within the directory as follows:
 
-`docker run -v /home/mkrom/myapp:/myapp -e LOAD=/myapp/boot.dws`
+`docker run --platform linux/arm/v7 -v /home/mkrom/myapp:/myapp -e LOAD=/myapp/boot.dws`
 
 As the application runs, any changes that it makes to the `/myapp` directory will immediately be visible from outside the container. You will need to add the settings for RIDE if you want to be able to interact with the application while it is running (other than by inspecting the contents of mapped directories).
 
