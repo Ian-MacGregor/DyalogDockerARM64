@@ -1,7 +1,7 @@
 
-# dyalog/dyalog Container
+# DyalogDockerARM64
 
-This container provides access to a Dyalog APL interpreter, with support for interactive debugging via RIDE or a web browser. The container is built using a Dockerfile and startup script which can be found in the [Dyalog/DyalogDocker](https://github.com/Dyalog/DyalogDocker) GitHub repository.
+This project is a fork of the official Dyalog Docker Conainer project.  It is identical to the official container project except the Dockerfile has been altered to use the Dyalog distribution for the Raspberry Pi (32-bit ARM) instead of the x86 distribution.  Despite using the 32-bit distribution, the image created by this project can run on 64-bit ARM thanks to Docker (include the "--platform linux/arm/v7" tag when running the container to ensure compatibility on 64-bit ARM).  I believe this is the easiest way to run Dyalog APL on a 64-bit ARM machine (like Raspberry Pi 4 & 5).  The following readme information is nearly identical to the official image (only slight alterations to some "docker run" commands):
 
 ## Interactive APL Sessions
 
