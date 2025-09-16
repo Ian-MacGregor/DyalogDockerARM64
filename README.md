@@ -5,11 +5,24 @@ This project is a fork of the official Dyalog Docker Conainer project.  It is id
 
 ## Building the dyalog-ARM container
 
-Somehow, this information was left out of the official container project's readme.  Execute the following command from a path containing this project's files to generate a Docker image called "dyalog-ARM":
+This information is not present in the official container project's readme but I think some might find it useful:
+
+Execute the following command from a path containing this project's files to generate a Docker image called "dyalog-ARM":
 
 `docker build --platform linux/arm/v7 -t dyalog-ARM .`
 
 NOTE: The trailing period is important!
+
+You can also use Docker Compose to build this container with a Docker Compose YAML file if you include something like the following in your YAML:
+
+`version: '3.8'
+services:
+  dyalog-arm:
+    build:
+      context: .
+      platforms:
+        - linux/arm/v7
+    image: dyalog-ARM`
 
 ## General Information About Using This Container:
 
