@@ -15,14 +15,14 @@ NOTE: The trailing period is important!
 
 You can also use Docker Compose to build this container with a Docker Compose YAML file if you include something like the following in your YAML:
 
-`version: '3.8'
-services:
-  dyalog-arm:
-    build:
-      context: .
-      platforms:
-        - linux/arm/v7
-    image: dyalog-ARM`
+`version: '3.8'`
+`services:`
+`  dyalog-arm:`
+`    build:`
+`      context: .`
+`      platforms:`
+`        - linux/arm/v7`
+`    image: dyalog-ARM`
 
 ## General Information About Using This Container:
 
